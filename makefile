@@ -1,11 +1,27 @@
-compiler = gcc
-gdb_option = -g
+DirInc = ./include
+DirSrc = ./src
+DirObj = ./obj
+DirBin = ./bin
+DirLib = ./lib
 
-test: test.c my_log.o
-	$(compiler) $(gdb_option) test.c my_log.o -o test
+Src = $(wildcard $(DirSrc)/*.c)
+Obj = $(patsubst %.c, $(DirObj)/%.o, $(notdir $(Src)))
+Lib = $(wildcard $(DirLib)/*.a)
 
-my_log.o: my_log.c
-	$(compiler) $(gdb_option) -c my_log.c -o my_log.o
+Target = test
 
+BinTarget := $(DirBin)/$(Target)
+
+CC = gcc
+CFLAGS = -g -Wall -I$(DirInc)
+
+$(BinTarget): $(Obj)
+	$(CC) $(Obj) $(Lib) -o $@
+	ar crv $(DirObj)/libmy_log.a $(DirObj)/my_log.o
+
+$(DirObj)/%.o: $(DirSrc)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: clean
 clean:
-	rm -rf *.i *.s *.o test
+	rm $(DirObj)/* -rf
