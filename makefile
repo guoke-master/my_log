@@ -24,4 +24,4 @@ $(DirObj)/%.o: $(DirSrc)/%.c
 
 .PHONY: clean
 clean:
-	rm $(DirObj)/* -rf
+	rm $(DirObj)/* $(DirBin)/* -rf
