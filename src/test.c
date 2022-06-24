@@ -14,11 +14,11 @@
 int func_01()
 {
 	int i = 0;
-	LOGD("debug log: %d",i);
-	LOGI("info log: %d",i);
-	LOGW("warning log: %d",i);
-	LOGE("error log: %d",i);
-	LOGF("fatal log: %d",i);
+	LOGD(g_log_file_path, "debug log: %d",i);
+	LOGI(g_log_file_path, "info log: %d",i);
+	LOGW(g_log_file_path, "warning log: %d",i);
+	LOGE(g_log_file_path, "error log: %d",i);
+	LOGF(g_log_file_path, "fatal log: %d",i);
 	return 0;
 }
 
@@ -26,11 +26,13 @@ int func_01()
 int main(void)
 {
 	int i = 0;
-	LOGD("debug log: %d",i);
-	LOGI("info log: %d",i);
-	LOGW("warning log: %d",i);
-	LOGE("error log: %d",i);
-	LOGF("fatal log: %d",i);
+
+	g_log_file_path = "./log/log.txt";
+	LOGD(g_log_file_path, "debug log: %d",i);
+	LOGI(g_log_file_path, "info log: %d",i);
+	LOGW(g_log_file_path, "warning log: %d",i);
+	LOGE(g_log_file_path, "error log: %d",i);
+	LOGF(g_log_file_path, "fatal log: %d",i);
 
 	func_01();
 

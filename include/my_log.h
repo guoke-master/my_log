@@ -12,16 +12,18 @@
 extern "C"{
 #endif
 
-
 #define LOG_BUFFER_SIZE (1024 * 1024)
 
-int Trace(int level, const char* file, const int line, const char* function, const char* fmt, ... );
+// 默认日志文件路径:./log.txt
+extern const char* g_log_file_path;
 
-#define LOGD(...) Trace(0, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define LOGI(...) Trace(1, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define LOGW(...) Trace(2, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define LOGE(...) Trace(3, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define LOGF(...) Trace(4, __FILE__, __LINE__, __func__, __VA_ARGS__)
+int Trace(const char* log_file, int level, const char* file, const int line, const char* function, const char* fmt, ... );
+
+#define LOGD(log_file, ...) Trace(log_file, 0, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define LOGI(log_file, ...) Trace(log_file, 1, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define LOGW(log_file, ...) Trace(log_file, 2, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define LOGE(log_file, ...) Trace(log_file, 3, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define LOGF(log_file, ...) Trace(log_file, 4, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #ifdef __cplusplus
 }
